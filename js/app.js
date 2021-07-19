@@ -14,16 +14,24 @@ const btnDelete = document.querySelector('#resetBtn')
 
 let arr = [inputEmail, inputAsunto, inputMensaje]
 
+const spinner = document.querySelector('#spinner')
+
 eventListeners()
 
 function eventListeners() {
 
     addEventListener('DOMContentLoaded', iniciarApp)
+
     inputEmail.addEventListener('blur', validarFormulario)
+
     inputAsunto.addEventListener('blur', validarFormulario)
+
     inputMensaje.addEventListener('blur', validarFormulario)
+
     arr.forEach(item => item.addEventListener('blur', validarFormularios))
+
     btnEnviar.addEventListener('click', enviarFormulario)
+
     btnDelete.addEventListener('click', eliminarCampos)
 }
 
@@ -226,11 +234,22 @@ function mostrarError(mensaje) {
 
 function enviarFormulario(e) {
 
-    if(!e.target.disabled) {
+
+    spinner.style.display = 'flex'
+
+    function enviar() {
+
+        
+        if(e.target.classList.contains('form')) {
 
         e.preventDefault()
-        swal('Información enviada', 'Nos pondremos en contacto contigo en la brevedad', 'success')
+        swal('Información enviada', 'Nos pondremos en contacto contigo en la brevedad!', 'success')
+        }
+
+        spinner.style.display = 'none'
     }
+
+    setTimeout( enviar, 2500 )
 
     form.reset()
 
@@ -245,8 +264,19 @@ function eliminarCampos(e) {
 
     e.preventDefault()
 
+    if(inputEmail.value.length !== 0  && inputAsunto.value.length !== 0 && inputMensaje.value !== 0) {
+
+        swal('Campos eliminados', 'Puedes replantearnos tu consulta', 'success')
+    }
+
+
     form.reset()
 
     limpiarFormulario()
 }
 
+// function jaja () {
+//     console.log('hola')
+// }
+
+// setTimeout( jaja(), 3000 )
